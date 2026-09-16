@@ -1,0 +1,9 @@
+Package: com.gilshahar7.telegramtimesensitive
+Name: TelegramTimeSensitive
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: Promotes notifications from chosen Telegram chats to Time Sensitive.
+Maintainer: gilshahar7
+Author: gilshahar7
+Section: Tweaks
+Depends: mobilesubstrate (>= 0.9.5000), preferenceloader

@@ -1,0 +1,10 @@
+{
+    entry = {
+        bundle = TelegramTimeSensitivePrefs;
+        cell = PSLinkCell;
+        detail = TTSRootListController;
+        icon = icon.png;
+        isController = 1;
+        label = "Telegram Time Sensitive";
+    };
+}
