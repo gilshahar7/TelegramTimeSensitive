@@ -31,7 +31,12 @@ static NSString *const TTSIntentsImages = @"/var/mobile/Library/Intents/Images";
 // The context points at the image with an intents-remote-image-proxy URL whose
 // proxyIdentifier, once decoded, is the file's name in the store.
 static NSString *TTSAvatarFileName(BBCommunicationContext *context) {
-    NSURLComponents *components = [NSURLComponents componentsWithURL:context.contentURL
+    // A chat with no picture has no URL here, and NSURLComponents throws on a
+    // nil one, which takes SpringBoard down with it.
+    NSURL *contentURL = context.contentURL;
+    if (!contentURL) return nil;
+
+    NSURLComponents *components = [NSURLComponents componentsWithURL:contentURL
                                             resolvingAgainstBaseURL:NO];
 
     for (NSURLQueryItem *item in components.queryItems) {
@@ -43,7 +48,7 @@ static NSString *TTSAvatarFileName(BBCommunicationContext *context) {
 
 static void TTSHarvestAvatar(BBBulletin *bulletin) {
     NSString *fileName = TTSAvatarFileName(bulletin.communicationContext);
-    if (fileName.length == 0) return;
+    if (fileName.length == 0 || bulletin.threadID.length == 0) return;
 
     // A bulletin is configured several times over as it is decoded and copied,
     // so the same picture would otherwise be read and compared repeatedly.
